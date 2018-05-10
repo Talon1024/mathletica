@@ -1,0 +1,1 @@
+This directory contains the original ActionScript source code from my original Mathletica Adobe AIR app
