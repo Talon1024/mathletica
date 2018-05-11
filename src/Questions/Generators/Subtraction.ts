@@ -1,4 +1,4 @@
-import { IntegralMathQuestion } from './MathQuestion';
+import { IntegralMathQuestion } from './Base';
 import { getRandom } from '../../util/random';
 
 export class SubtractionQuestion extends IntegralMathQuestion {

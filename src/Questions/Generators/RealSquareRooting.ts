@@ -1,5 +1,6 @@
-import { MultipleChoiceMathQuestion } from './MathQuestion';
+import { MultipleChoiceMathQuestion } from './Base';
 import { getRandom } from '../../util/random';
+import { repeat } from '../../util/repeat';
 
 export class RealSquareRootQuestion extends MultipleChoiceMathQuestion {
   generate(min: number, max: number): void {
@@ -8,9 +9,9 @@ export class RealSquareRootQuestion extends MultipleChoiceMathQuestion {
 
     this.correctAnswer = Math.round(getRandom(0, 3));
 
-    this.choices = new Array(4).map((e, i) => {
+    this.choices = repeat<number>((i) => {
       if (i === this.correctAnswer) return Math.sqrt(baseNum);
       return Math.sqrt(baseNum) + Math.random() * 2;
-    });
+    }, 4);
   }
 }
