@@ -1,18 +1,18 @@
-import { IntegralMathQuestion } from './Base';
 import { getRandom } from '../../util/random';
+import { IntegralMathQuestion } from './Base/IntegralMathQuestion';
 
 export class SubtractionQuestion extends IntegralMathQuestion {
-  generate(min: number, max: number): void {
-    [this.firstOperand, this.secondOperand] = SubtractionQuestion.generateOperands(min, max);
-    this.correctAnswer = this.firstOperand - this.secondOperand;
-  }
-  static generateOperands(min:number, max:number):number[] {
-    let firstOperand = Math.round(getRandom(min, max));
-    let secondOperand = Math.round(getRandom(min, max));
-    let [nmin, nmax] = [
+  public static generateOperands(min:number, max:number):number[] {
+    const firstOperand = Math.round(getRandom(min, max));
+    const secondOperand = Math.round(getRandom(min, max));
+    const [nmin, nmax] = [
       Math.min(firstOperand, secondOperand),
       Math.max(firstOperand, secondOperand),
     ]
     return [nmax, nmin];
+  }
+  public generate(min: number, max: number): void {
+    const [firstOperand, secondOperand] = SubtractionQuestion.generateOperands(min, max);
+    this.correctAnswer = firstOperand - secondOperand;
   }
 }
