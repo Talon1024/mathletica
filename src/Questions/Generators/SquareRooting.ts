@@ -7,10 +7,21 @@ export class SquareRootQuestion extends IntegralMathQuestion {
     const secondOperand = firstOperand * firstOperand;
     return [secondOperand, firstOperand];
   }
+
+  constructor() {
+    super();
+    this.operator = "\u221A";
+  }
+
   public generate(min: number, max: number): void {
     const [firstOperand, secondOperand] = SquareRootQuestion.generateOperands(min, max);
     this.correctAnswer = secondOperand;
     this.firstOperand = firstOperand.toString(10);
     this.secondOperand = secondOperand.toString(10);
+    this.questionText = this.getQuestionText();
+  }
+
+  public getQuestionText():string {
+    return `${this.operator}${this.firstOperand}`;
   }
 }

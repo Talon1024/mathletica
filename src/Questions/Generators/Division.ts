@@ -7,10 +7,17 @@ export class DivisionQuestion extends IntegralMathQuestion {
     const firstOperand = secondOperand * Math.round(getRandom(min, max));
     return [firstOperand, secondOperand];
   }
+
+  constructor() {
+    super();
+    this.operator = "\xF7";
+  }
+
   public generate(min: number, max: number): void {
     const [firstOperand, secondOperand] = DivisionQuestion.generateOperands(min, max);
     this.correctAnswer = firstOperand / secondOperand;
     this.firstOperand = firstOperand.toString(10);
     this.secondOperand = secondOperand.toString(10);
+    this.questionText = this.getQuestionText();
   }
 }

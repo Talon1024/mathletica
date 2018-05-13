@@ -6,6 +6,10 @@ export abstract class IntegralMathQuestion extends MathQuestion {
   public static generateOperands(min:number, max:number):number[] {
     return [0, 1];
   }
-  protected firstOperand:string;
-  protected secondOperand?:string;
+  public operator:string;
+  public firstOperand:string;
+  public secondOperand?:string;
+  public getQuestionText():string {
+    return `${this.firstOperand} ${this.operator} ${this.secondOperand}`;
+  }
 }

@@ -11,8 +11,17 @@ export class SubtractionQuestion extends IntegralMathQuestion {
     ]
     return [nmax, nmin];
   }
+
+  constructor() {
+    super();
+    this.operator = "-";
+  }
+
   public generate(min: number, max: number): void {
     const [firstOperand, secondOperand] = SubtractionQuestion.generateOperands(min, max);
     this.correctAnswer = firstOperand - secondOperand;
+    this.firstOperand = firstOperand.toString(10);
+    this.secondOperand = secondOperand.toString(10);
+    this.questionText = this.getQuestionText();
   }
 }
