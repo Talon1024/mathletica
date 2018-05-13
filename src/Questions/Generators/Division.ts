@@ -13,11 +13,10 @@ export class DivisionQuestion extends IntegralMathQuestion {
     this.operator = "\xF7";
   }
 
-  public generate(min: number, max: number): void {
-    const [firstOperand, secondOperand] = DivisionQuestion.generateOperands(min, max);
-    this.correctAnswer = firstOperand / secondOperand;
-    this.firstOperand = firstOperand;
-    this.secondOperand = secondOperand;
+  public generate(difficulty: number): void {
+    const [min, max] = [difficulty * 6 + 1, (difficulty + 1) * 7];
+    [this.firstOperand, this.secondOperand] = DivisionQuestion.generateOperands(min, max);
+    this.correctAnswer = this.firstOperand / this.secondOperand;
     this.questionText = this.getQuestionText();
   }
 }

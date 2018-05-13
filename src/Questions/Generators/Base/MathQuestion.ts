@@ -2,7 +2,7 @@
 export abstract class MathQuestion {
   public correctAnswer:number;
   public questionText:string;
-  public abstract generate(min:number, max:number):void;
+  public abstract generate(difficulty:number):void;
   public checkAnswer(answer:number):boolean {
     return answer === this.correctAnswer;
   };

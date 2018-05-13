@@ -3,7 +3,8 @@ import { repeat } from '../../util/repeat';
 import { MultipleChoiceMathQuestion } from './Base/MultipleChoiceMathQuestion';
 
 export class RealSquareRootQuestion extends MultipleChoiceMathQuestion {
-  public generate(min: number, max: number): void {
+  public generate(difficulty: number): void {
+    const [min, max] = [difficulty * 6 + 1, (difficulty + 1) * 7];
     let baseNum = Math.round(getRandom(min, max));
     while (Number.isInteger(Math.sqrt(baseNum))) {
       baseNum = Math.round(getRandom(min, max));

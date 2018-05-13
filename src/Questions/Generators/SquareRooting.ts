@@ -13,11 +13,10 @@ export class SquareRootQuestion extends IntegralMathQuestion {
     this.operator = "\u221A";
   }
 
-  public generate(min: number, max: number): void {
-    const [firstOperand, secondOperand] = SquareRootQuestion.generateOperands(min, max);
-    this.correctAnswer = secondOperand;
-    this.firstOperand = firstOperand;
-    this.secondOperand = secondOperand;
+  public generate(difficulty: number): void {
+    const [min, max] = [difficulty * 6 + 1, (difficulty + 1) * 7];
+    [this.firstOperand, this.secondOperand] = SquareRootQuestion.generateOperands(min, max);
+    this.correctAnswer = this.secondOperand;
     this.questionText = this.getQuestionText();
   }
 

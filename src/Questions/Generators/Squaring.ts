@@ -12,10 +12,10 @@ export class SquareQuestion extends IntegralMathQuestion {
     this.operator = "\xB2";
   }
 
-  public generate(min: number, max: number): void {
-    const [firstOperand] = SquareQuestion.generateOperands(min, max);
-    this.correctAnswer = firstOperand * firstOperand;
-    this.firstOperand = firstOperand;
+  public generate(difficulty: number): void {
+    const [min, max] = [difficulty * 6 + 1, (difficulty + 1) * 7];
+    [this.firstOperand] = SquareQuestion.generateOperands(min, max);
+    this.correctAnswer = this.firstOperand * this.firstOperand;
     this.questionText = this.getQuestionText();
   }
 
