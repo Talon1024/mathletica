@@ -10,7 +10,7 @@ export function PolynomialTestbed(props:{}) {
   }, 3);
   const polyEl:JSX.Element[] = polynomials.map((p, i) => {
     return (
-      <p key={`poly${i}`}>{p.getQuestionText()}</p>
+      <p key={`poly${i}`}>{p.getQuestionText()}<br/>{p.termName} = {p.correctAnswer}</p>
     );
   });
   return (

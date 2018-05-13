@@ -3,15 +3,19 @@ import { repeat } from '../../util/repeat';
 import { MathQuestion } from './Base/MathQuestion';
 
 export class PolynomialQuestion extends MathQuestion {
+  public termName = "x";
   protected terms:number[]; // Subscript is power, value is multiplier (e.g. terms[0] = 2 -> 2, terms[1] = 3 -> 3x)
   protected readonly MAX_TERMS = [1, 2, 3];
-  protected termName = "x";
   protected lhs:number;
   public generate(difficulty:number) {
     const numTerms = this.MAX_TERMS[difficulty];
-    const [min, max] = [difficulty * 6 + 1, (difficulty + 1) * 7];
+    const [min, max] = [difficulty * 3 + 1, (difficulty + 1) * 7];
     this.terms = this.getTerms(numTerms, min, max);
-    this.lhs = Math.round(getRandom(min, max));
+    this.correctAnswer = Math.round(getRandom(min, max));
+
+    this.lhs = this.terms.reduce((p,c,i) => {
+      return p + Math.pow(this.correctAnswer, i) * c;
+    });
   }
   public getTerms(termCount:number, min:number, max:number):number[] {
     const results = repeat(() => Math.round(getRandom(min, max)), termCount);
@@ -20,11 +24,14 @@ export class PolynomialQuestion extends MathQuestion {
         results[i] *= -1;
       }
     }
+    if (results.length === 1) {
+      results.push(1);
+    }
     return results;
   }
   public getQuestionText():string {
     const termStrs = this.terms.map((val, idx) => this.termToString(val, this.termName, idx, idx === 0));
-    return `${termStrs.join(" ")}`;
+    return `${this.lhs} = ${termStrs.join(" ")}${this.terms.length === 1 && " + x" || ""}`;
   }
   public isAvailable():boolean {
     return false;
@@ -56,6 +63,6 @@ export class PolynomialQuestion extends MathQuestion {
       name = "";
     }
 
-    return `${prefix}${factor}${name}${powStr}`;
+    return `${prefix}${power > 0 && factor === 1 ? "" : factor}${name}${powStr}`;
   }
 }
