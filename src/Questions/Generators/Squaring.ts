@@ -15,7 +15,7 @@ export class SquareQuestion extends IntegralMathQuestion {
   public generate(min: number, max: number): void {
     const [firstOperand] = SquareQuestion.generateOperands(min, max);
     this.correctAnswer = firstOperand * firstOperand;
-    this.firstOperand = firstOperand.toString() + "²";
+    this.firstOperand = firstOperand;
     this.questionText = this.getQuestionText();
   }
 

@@ -16,8 +16,8 @@ export class DivisionQuestion extends IntegralMathQuestion {
   public generate(min: number, max: number): void {
     const [firstOperand, secondOperand] = DivisionQuestion.generateOperands(min, max);
     this.correctAnswer = firstOperand / secondOperand;
-    this.firstOperand = firstOperand.toString(10);
-    this.secondOperand = secondOperand.toString(10);
+    this.firstOperand = firstOperand;
+    this.secondOperand = secondOperand;
     this.questionText = this.getQuestionText();
   }
 }

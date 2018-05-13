@@ -7,4 +7,7 @@ export abstract class MathQuestion {
     return answer === this.correctAnswer;
   };
   public abstract getQuestionText():string;
+  public isAvailable():boolean {
+    return true;
+  }
 }

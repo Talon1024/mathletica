@@ -7,8 +7,8 @@ export abstract class IntegralMathQuestion extends MathQuestion {
     return [0, 1];
   }
   public operator:string;
-  public firstOperand:string;
-  public secondOperand?:string;
+  public firstOperand:number;
+  public secondOperand?:number;
   public getQuestionText():string {
     return `${this.firstOperand} ${this.operator} ${this.secondOperand}`;
   }
