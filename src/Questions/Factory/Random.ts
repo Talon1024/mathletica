@@ -7,7 +7,7 @@ import { RealSquareRootQuestion } from '../Generators/RealSquareRooting';
 import { SquareRootQuestion } from '../Generators/SquareRooting';
 import { SquareQuestion } from '../Generators/Squaring';
 import { SubtractionQuestion } from '../Generators/Subtraction';
-import { IQuestionFactory } from './Base'
+import { IQuestionFactory } from './Base';
 
 export class RandomQuestionFactory implements IQuestionFactory {
   public makeQuestion(difficulty:number):MathQuestion {
