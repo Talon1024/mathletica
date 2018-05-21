@@ -5,7 +5,7 @@ export abstract class MathQuestion {
   public abstract generate(difficulty:number):void;
   public checkAnswer(answer:number):boolean {
     return answer === this.correctAnswer;
-  };
+  }
   public abstract getQuestionText():string;
   public isAvailable():boolean {
     return true;

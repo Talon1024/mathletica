@@ -20,10 +20,10 @@ export class RandomQuestionFactory implements IQuestionFactory {
       new SquareRootQuestion(),
       new SquareQuestion(),
       new SubtractionQuestion(),
-    ]
+    ];
     questionTypes = questionTypes.filter((e) => e.isAvailable());
     const picked = Math.round(Math.random() * questionTypes.length);
-    const q = questionTypes[picked]
+    const q = questionTypes[picked];
     q.generate(difficulty);
     return q;
   }

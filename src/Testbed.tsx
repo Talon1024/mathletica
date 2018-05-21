@@ -8,6 +8,7 @@ interface IPolynomialTestbedState {
 }
 
 export class PolynomialTestbed extends React.Component<{},IPolynomialTestbedState> {
+  private difficulties:string[] = ["Beginner", "Intermediate", "Expert"];
 
   constructor(props:{}) {
     super(props);
@@ -27,7 +28,7 @@ export class PolynomialTestbed extends React.Component<{},IPolynomialTestbedStat
   public render() {
     const polyEl:JSX.Element[] = this.state.polynomials.map((p, i) => {
       return (
-        <p key={`poly${i}`}>{p.getQuestionText()}<br/>
+        <p key={`poly${i}`}>{this.difficulties[i]} question example:<br/>{p.getQuestionText()}<br/>
           <button onClick={this.toggleAnswerDisplay.bind(this, i)}>{this.state.showAnswer[i] ? "Hide" : "Show"} answer</button>
           <span className={this.state.showAnswer[i] ? "" : "hidden"}>{p.termName} = {p.correctAnswer}</span>
         </p>

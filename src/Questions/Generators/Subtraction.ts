@@ -8,7 +8,7 @@ export class SubtractionQuestion extends IntegralMathQuestion {
     const [nmin, nmax] = [
       Math.min(firstOperand, secondOperand),
       Math.max(firstOperand, secondOperand),
-    ]
+    ];
     return [nmax, nmin];
   }
 
