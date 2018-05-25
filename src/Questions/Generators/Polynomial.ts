@@ -1,4 +1,4 @@
-import { QuestionInputType } from '../../../util/mathinput';
+import { QuestionInputType } from '../../util/mathinput';
 import { getRandom } from '../../util/random';
 import { repeat } from '../../util/repeat';
 import { MathQuestion } from './Base/MathQuestion';
