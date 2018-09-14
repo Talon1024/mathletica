@@ -2,9 +2,16 @@ import * as React from 'react';
 import { EventHandler } from '../../util/ehandler';
 import './KeypadPanel.css';
 
-export function KeypadPanel(props:{clickHandler:EventHandler}) {
+interface IKeypadPanelProps {
+  clickHandler: EventHandler;
+  inputHandler: EventHandler;
+  value: string;
+}
+
+export function KeypadPanel(props:IKeypadPanelProps) {
   return (
     <div className="keypad">
+      <input className="display" type="number" onChange={props.inputHandler} value={props.value} />
       <button onClick={props.clickHandler}>1</button>
       <button onClick={props.clickHandler}>2</button>
       <button onClick={props.clickHandler}>3</button>

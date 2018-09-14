@@ -16,19 +16,6 @@ export class AnswerInput extends React.Component<IAnswerInputProps,IAnswerInputS
     };
   }
 
-  public appendValue(val:string) {
-    const newValue = this.state.curValue + val;
-    this.setState({
-      curValue: newValue
-    });
-  }
-
-  public clearValue() {
-    this.setState({
-      curValue: ""
-    });
-  }
-
   public render() {
     return (<input type={this.props.type} value={this.state.curValue} className="answerInput" maxLength={5}/>);
   }

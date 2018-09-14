@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { RandomQuestionFactory } from './Questions/Factory/Random';
 import { PolynomialQuestion } from './Questions/Generators/Polynomial';
 import { repeat } from './util/repeat';
+import { AnswerContainer } from './View/QuestionView/AnswerContainer';
 
 interface IPolynomialTestbedState {
   polynomials:PolynomialQuestion[];
@@ -34,8 +36,14 @@ export class PolynomialTestbed extends React.Component<{},IPolynomialTestbedStat
         </p>
       );
     });
+    const qf = new RandomQuestionFactory();
+    const q = qf.makeQuestion(1);
     return (
-      <div>{polyEl}</div>
+      <div>
+        <p>{q.getQuestionText()}</p>
+        <AnswerContainer question={q}/>
+        {polyEl}
+      </div>
     );
   }
 

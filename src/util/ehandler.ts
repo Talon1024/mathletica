@@ -1,3 +1,4 @@
 import * as React from 'react';
 
-export type EventHandler = (e:React.SyntheticEvent<HTMLElement>) => void;
+export type ReactEvent = React.SyntheticEvent<HTMLElement>;
+export type EventHandler = (e:ReactEvent) => void;
