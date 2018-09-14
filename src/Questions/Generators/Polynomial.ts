@@ -1,10 +1,12 @@
+import { QuestionInputType } from '../../util/mathinput';
 import { getRandom } from '../../util/random';
 import { repeat } from '../../util/repeat';
 import { MathQuestion } from './Base/MathQuestion';
 
 export class PolynomialQuestion extends MathQuestion {
   public termName = "x";
-  protected terms:number[]; // Subscript is power of x, value is multiplier (e.g. terms[0] = 2 -> 2(x^0=1), terms[1] = 3 -> 3x^1)
+  public readonly inputType:QuestionInputType = "keypad";
+  protected terms:number[]; // Subscript is power, value is multiplier (e.g. terms[0] = 2 -> 2, terms[1] = 3 -> 3x)
   protected readonly MAX_TERMS = [1, 2, 3];
   protected lhs:number;
 
