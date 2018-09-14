@@ -2,6 +2,7 @@ import * as React from 'react';
 import { MathQuestion } from '../../Questions/Generators/Base/MathQuestion';
 import { MultipleChoiceMathQuestion } from '../../Questions/Generators/Base/MultipleChoiceMathQuestion';
 import { KeypadPanelContainer } from './KeypadPanelContainer';
+import { MultipleChoicePanelContainer } from './MultipleChoicePanelContainer';
 
 interface IAnswerContainerProps {
   question: MathQuestion;
@@ -29,7 +30,9 @@ export class AnswerContainer extends React.Component<IAnswerContainerProps,IAnsw
 
   public render() {
     const answerDisplay = this.debug ? <p>Current answer: {this.state.answer}</p> : null;
-    const answerInterface = this.isMultipleChoice(this.props.question) ? null : <KeypadPanelContainer onChange={this.setAnswer}/>;
+    const answerInterface = this.isMultipleChoice(this.props.question) ?
+      <MultipleChoicePanelContainer choices={(this.props.question as MultipleChoiceMathQuestion).choices} onChange={this.setAnswer}/> :
+        <KeypadPanelContainer onChange={this.setAnswer}/>;
     return (
       <div>
         {answerDisplay}
