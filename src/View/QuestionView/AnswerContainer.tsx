@@ -9,7 +9,8 @@ interface IAnswerContainerProps {
 }
 
 interface IAnswerContainerState {
-  answer: string;
+  answer: number;
+  displayedAnswer: string;
 }
 
 export class AnswerContainer extends React.Component<IAnswerContainerProps,IAnswerContainerState> {
@@ -18,18 +19,24 @@ export class AnswerContainer extends React.Component<IAnswerContainerProps,IAnsw
   constructor(props:IAnswerContainerProps) {
     super(props);
     this.state = {
-      answer: ""
+      answer: 0,
+      displayedAnswer: ""
     };
   }
 
-  public setAnswer = (val:string) => {
+  public setAnswer = (ans:number, val?:string) => {
+    if (val == null) {
+      // val = ans.toFixed(6);
+      val = ans.toString(10);
+    }
     this.setState({
-      answer: val
+      answer: ans,
+      displayedAnswer: val
     });
   }
 
   public render() {
-    const answerDisplay = this.debug ? <p>Current answer: {this.state.answer}</p> : null;
+    const answerDisplay = this.debug ? <p>Current answer: {this.state.displayedAnswer} ({this.state.answer})</p> : null;
     const answerInterface = this.isMultipleChoice(this.props.question) ?
       <MultipleChoicePanelContainer choices={(this.props.question as MultipleChoiceMathQuestion).choices} onChange={this.setAnswer}/> :
         <KeypadPanelContainer onChange={this.setAnswer}/>;
@@ -42,7 +49,7 @@ export class AnswerContainer extends React.Component<IAnswerContainerProps,IAnsw
   }
 
   private isMultipleChoice(q:MathQuestion):q is MultipleChoiceMathQuestion {
-    return q.hasOwnProperty('choices');
+    return q.inputType === "choices";
   }
 
 }

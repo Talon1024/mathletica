@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { ReactEvent } from '../../util/ehandler';
 import { MultipleChoicePanel } from './MultipleChoicePanel';
 
 interface IMultipleChoicePanelContainerProps {
   choices: number[];
-  onChange: (val:string) => void;
+  onChange: (ans:number, val:string) => void;
 }
 
 interface IMultipleChoicePanelContainerState {
@@ -18,17 +17,16 @@ export class MultipleChoicePanelContainer extends React.Component<IMultipleChoic
       selectedIndex: 0
     };
   }
-  public setAnswer = (val:string) => {
-    this.props.onChange(val);
+
+  public setAnswer = (idx:number, val:string) => {
+    this.props.onChange(idx, val);
+    this.setState({selectedIndex: idx});
   }
-  public handleClick = (e:ReactEvent) => {
-    const el = e.target as HTMLElement;
-    this.setAnswer(el.dataset.index || "");
-  }
+
   public render() {
     const choiceStrs = this.props.choices.map((n) => Number.isInteger(n) ? n.toString() : n.toFixed(16));
     return (
-      <MultipleChoicePanel onClick={this.handleClick} choices={choiceStrs}/>
+      <MultipleChoicePanel onClick={this.setAnswer} choices={choiceStrs}/>
     );
   }
 }

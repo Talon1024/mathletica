@@ -1,16 +1,20 @@
 import * as React from 'react';
-import { EventHandler } from '../../util/ehandler';
 
 interface IMultipleChoicePanelProps {
-  onClick:EventHandler;
+  onClick:(n:number, v:string) => void;
   choices:string[];
 }
 
 export function MultipleChoicePanel(props:IMultipleChoicePanelProps) {
+  const clickHandler = (n:number, v:string) => {
+    return () => {
+      props.onClick(n, v);
+    };
+  };
+
   const choiceBtns = props.choices.map((choice, i) =>
     <button key={`mc-choice-${i}`}
-      data-index={i}
-      onClick={props.onClick}
+      onClick={clickHandler(i, choice)}
       className="choice">{choice}</button>
   );
   return (

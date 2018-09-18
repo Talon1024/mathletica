@@ -3,7 +3,7 @@ import { ReactEvent } from '../../util/ehandler';
 import { KeypadPanel } from './KeypadPanel';
 
 interface IKeypadPanelContainerProps {
-  onChange?: (val:string) => void;
+  onChange?: (ans:number) => void;
 }
 
 interface IKeypadPanelContainerState {
@@ -14,15 +14,17 @@ export class KeypadPanelContainer extends React.Component<IKeypadPanelContainerP
   constructor(props:IKeypadPanelContainerProps) {
     super(props);
     this.state = {
-      value: ""
+      value: "0"
     };
   }
 
   public append = (val:string) => {
-    const newValue = this.state.value + val;
+    const oldValue = this.state.value;
+    const newValue = oldValue === "0" ? val : oldValue + val;
+    const newAnswer = Number.parseInt(newValue, 10);
 
     if (this.props.onChange) {
-      this.props.onChange(newValue);
+      this.props.onChange(newAnswer);
     }
 
     this.setState({
@@ -31,10 +33,11 @@ export class KeypadPanelContainer extends React.Component<IKeypadPanelContainerP
   }
 
   public clear = () => {
-    const newValue = "";
+    const newValue = "0";
+    const newAnswer = Number.parseInt(newValue, 10);
 
     if (this.props.onChange) {
-      this.props.onChange(newValue);
+      this.props.onChange(newAnswer);
     }
 
     this.setState({
@@ -43,10 +46,14 @@ export class KeypadPanelContainer extends React.Component<IKeypadPanelContainerP
   }
 
   public backspace = () => {
-    const newValue = this.state.value.substring(0, this.state.value.length - 1);
+    let newValue = this.state.value.substring(0, this.state.value.length - 1);
+    if (newValue === "") {
+      newValue = "0";
+    }
+    const newAnswer = Number.parseInt(newValue, 10);
 
     if (this.props.onChange) {
-      this.props.onChange(newValue);
+      this.props.onChange(newAnswer);
     }
 
     this.setState({
@@ -55,10 +62,36 @@ export class KeypadPanelContainer extends React.Component<IKeypadPanelContainerP
   }
 
   public handleKeypadInput = (e:ReactEvent) => {
-    const newValue = (e.target as HTMLInputElement).value;
+    const oldValue = this.state.value;
+    let newValue = (e.target as HTMLInputElement).value;
+    if (oldValue === "0") {
+      newValue = newValue.substr(1); // The user will most likely have entered something.
+    }
+
+    let newAnswer = Number.parseInt(newValue, 10);
+    if (Number.isNaN(newAnswer)) {
+      /*
+      // If the input type is "text"
+      if (newValue === "") {
+        newValue = "0";
+        newAnswer = 0;
+      } else {
+        newValue = oldValue;
+        newAnswer = Number.parseInt(oldValue, 10);
+      }
+      */
+      // If the input type is "number"
+      if (oldValue.length === 1) {
+        newValue = "0";
+        newAnswer = 0;
+      } else {
+        newValue = oldValue;
+        newAnswer = Number.parseInt(oldValue, 10);
+      }
+    }
 
     if (this.props.onChange) {
-      this.props.onChange(newValue);
+      this.props.onChange(newAnswer);
     }
 
     this.setState({
@@ -66,21 +99,24 @@ export class KeypadPanelContainer extends React.Component<IKeypadPanelContainerP
     });
   }
 
-  public handleKeypadClick = (e:ReactEvent) => {
-    const el = e.target as HTMLElement;
-    if (el.innerText === "C") {
+  public handleKeypadClick = (text:string) => {
+    if (text === "C") {
       this.clear();
-    } else if (el.innerText === "←") {
+    } else if (text === "←") {
       this.backspace();
     } else {
-      this.append(el.innerText);
+      this.append(text);
     }
+  }
+
+  public shouldComponentUpdate() {
+    return true;
   }
 
   public render() {
     return (<KeypadPanel
-      clickHandler={this.handleKeypadClick}
-      inputHandler={this.handleKeypadInput}
+      onClick={this.handleKeypadClick}
+      onInput={this.handleKeypadInput}
       value={this.state.value}/>);
   }
 }

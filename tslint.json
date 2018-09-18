@@ -7,8 +7,6 @@
     ]
   },
   "rules": {
-    "jsx-no-bind": [false],
-    "jsx-no-lambda": [false],
     "semicolon": [true]
   }
 }

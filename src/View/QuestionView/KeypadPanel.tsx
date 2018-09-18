@@ -3,27 +3,31 @@ import { EventHandler } from '../../util/ehandler';
 import './KeypadPanel.css';
 
 interface IKeypadPanelProps {
-  clickHandler: EventHandler;
-  inputHandler: EventHandler;
+  onClick: (text:string) => void;
+  onInput: EventHandler;
   value: string;
 }
 
 export function KeypadPanel(props:IKeypadPanelProps) {
+  const clickHandler = (s:string) => {
+    return () => {
+      props.onClick(s);
+    };
+  };
+
+  const buttonStrs:string[] = [
+    '1', '2', '3',
+    '4', '5', '6',
+    '7', '8', '9',
+    '←', '0', 'C'
+  ];
+
+  const buttons = buttonStrs.map((s) => (<button onClick={clickHandler(s)}>{s}</button>));
+
   return (
     <div className="keypad">
-      <input className="display" type="number" onChange={props.inputHandler} value={props.value} />
-      <button onClick={props.clickHandler}>1</button>
-      <button onClick={props.clickHandler}>2</button>
-      <button onClick={props.clickHandler}>3</button>
-      <button onClick={props.clickHandler}>4</button>
-      <button onClick={props.clickHandler}>5</button>
-      <button onClick={props.clickHandler}>6</button>
-      <button onClick={props.clickHandler}>7</button>
-      <button onClick={props.clickHandler}>8</button>
-      <button onClick={props.clickHandler}>9</button>
-      <button onClick={props.clickHandler}>←</button>
-      <button onClick={props.clickHandler}>0</button>
-      <button onClick={props.clickHandler}>C</button>
+      <input className="display" type="number" onChange={props.onInput} value={props.value} />
+      {buttons}
     </div>
   );
 }
