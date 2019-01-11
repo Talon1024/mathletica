@@ -11,6 +11,7 @@ interface IAnswerContainerProps {
 interface IAnswerContainerState {
   answer: number;
   displayedAnswer: string;
+  correct?: boolean;
 }
 
 export class AnswerContainer extends React.Component<IAnswerContainerProps,IAnswerContainerState> {
@@ -20,7 +21,7 @@ export class AnswerContainer extends React.Component<IAnswerContainerProps,IAnsw
     super(props);
     this.state = {
       answer: 0,
-      displayedAnswer: ""
+      displayedAnswer: "",
     };
   }
 
@@ -37,19 +38,38 @@ export class AnswerContainer extends React.Component<IAnswerContainerProps,IAnsw
 
   public render() {
     const answerDisplay = this.debug ? <p>Current answer: {this.state.displayedAnswer} ({this.state.answer})</p> : null;
+
     const answerInterface = this.isMultipleChoice(this.props.question) ?
       <MultipleChoicePanelContainer choices={(this.props.question as MultipleChoiceMathQuestion).choices} onChange={this.setAnswer}/> :
         <KeypadPanelContainer onChange={this.setAnswer}/>;
+
+    const answerButton = <button onClick={this.checkAnswer()}>Correct?</button>;
+    let answerCorrect = null;
+    if (this.state.correct != null) {
+      const correctText = this.state.correct ? "Correct!" : "Wrong!";
+      answerCorrect = <p>{correctText}</p>;
+    }
+
     return (
       <div>
         {answerDisplay}
         {answerInterface}
+        {answerButton}
+        {answerCorrect}
       </div>
     );
   }
 
   private isMultipleChoice(q:MathQuestion):q is MultipleChoiceMathQuestion {
     return q.inputType === "choices";
+  }
+
+  private checkAnswer = () => {
+    return () => {
+      const correct = this.props.question.checkAnswer(this.state.answer);
+      this.setState({correct});
+      return correct;
+    };
   }
 
 }
